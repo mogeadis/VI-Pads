@@ -1,0 +1,234 @@
+/**************************************************************************************************
+Filename: style.css
+
+Description: This stylesheet shapes the layout of the web page that hosts the project
+
+Author: Alexandros Iliadis
+Project: VI-Pads
+Date: August 2024
+**************************************************************************************************/
+
+/* Level 0 */
+html
+{
+    --pad-color: #00FF00;
+    --pad-size: 16vmin;
+}
+
+/* Level 1 */
+body
+{
+    align-items: center;
+    background-color: rgb(55, 55, 55);
+    background-image: url("Files/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Level 2 */
+.container
+{
+    background-color: rgb(55, 55, 55);
+    border-radius: calc(0.1*var(--pad-size));
+    box-shadow: 0 calc(0.03*var(--pad-size)) calc(0.1*var(--pad-size)) calc(0.02*var(--pad-size)) rgba(0, 0, 0, 0.5);
+    padding: calc(0.2*var(--pad-size));
+    padding-top: calc(0.1*var(--pad-size));
+}
+
+/* Level 3.1 */
+.header
+{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: calc(0.1*var(--pad-size)) calc(0.05*var(--pad-size));
+}
+
+/* Level 3.1.1 */
+.project
+{
+    align-items: center;
+    display: flex;
+}
+.project a
+{
+    color: white;
+    font-size: calc(0.3*var(--pad-size));
+    outline: none;
+    text-decoration: none;
+    user-select: none;
+}
+.project a span
+{
+    font-family: 'Balisong', serif;
+    letter-spacing: calc(0.02*var(--pad-size));
+    margin-left: calc(0.075*var(--pad-size));
+    margin-right: calc(0.1*var(--pad-size));
+    text-transform: uppercase;
+}
+/* Level 3.1.1 END*/
+
+/* Level 3.1.2 */
+.screen
+{
+    align-items: center;
+    background-color: rgb(0, 30, 0);
+    border-bottom: calc(0.01*var(--pad-size)) solid #cfcfcf48;
+    border-left: calc(0.02*var(--pad-size)) solid #000000cc;
+    border-radius: calc(0.075*var(--pad-size));
+    border-right: calc(0.01*var(--pad-size)) solid #cfcfcf33;
+    border-top: calc(0.02*var(--pad-size)) solid #000000cc;
+    box-shadow: inset 0 0 calc(0.5*var(--pad-size)) #000000ee;
+    display: flex;
+    height: calc(0.4*var(--pad-size));
+    justify-content: center;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-align: center;
+    width: calc(1.5*var(--pad-size));
+}
+.screen span
+{
+    color: var(--pad-color);
+    font-family: "Digitized", monospace;
+    font-size: calc(0.212*var(--pad-size));
+    line-height: calc(0.17*var(--pad-size));
+    opacity: 0;
+    text-shadow: 0 0 calc(0.2*var(--pad-size)) var(--pad-color);
+    transition: opacity 0.25s linear;
+    user-select: none;
+}
+/* Level 3.1.2 END */
+
+/* Level 3.1.3 */
+.controls
+{
+    display: flex;
+}
+.controls button
+{
+    align-items: center;
+    background-color: rgb(120, 120, 120);
+    border: none;
+    border-radius: 20%;
+    box-shadow: 0 calc(0.02*var(--pad-size)) calc(0.03*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.5),
+                0 0 calc(0.03*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.5) inset;
+    color: black;
+    display: flex;
+    font-size: calc(0.2*var(--pad-size));
+    height: calc(0.3*var(--pad-size));
+    justify-content: center;
+    margin-left: calc(0.1*var(--pad-size));
+    outline: none;
+    padding: 0;
+    touch-action: none;
+    transition: box-shadow 0.05s linear, transform 0.05s linear, color 0.25s linear;
+    width: calc(0.3*var(--pad-size));
+    -webkit-tap-highlight-color: transparent;
+}
+.controls button:active
+{
+    box-shadow: 0 calc(0.02*var(--pad-size)) calc(0.03*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.5),
+                0 0 calc(0.02*var(--pad-size)) calc(0.02*var(--pad-size)) rgba(0, 0, 0, 0.5) inset;
+    transform: translateY(calc(0.005*var(--pad-size)));
+}
+.controls button input
+{
+    background-color: rgb(120, 120, 120);
+    border: none;
+    border-radius: 20%;
+    box-shadow: 0 calc(0.02*var(--pad-size)) calc(0.03*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.5),
+                0 0 calc(0.03*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.5) inset;
+    height: calc(0.3*var(--pad-size));
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    width: calc(0.3*var(--pad-size));
+}
+.controls button input:enabled
+{
+    cursor: pointer;
+}
+/* Level 3.1.3 END */
+
+hr
+{
+    border: calc(0.01*var(--pad-size)) solid rgba(0, 0, 0, 0.2);
+    margin: 0 0 calc(0.1*var(--pad-size)) 0;
+}
+/* Level 3.1 END */
+
+/* Level 3.2 */
+.matrix
+{
+    display: grid;
+    gap: calc(0.1*var(--pad-size));
+    grid-template-columns: repeat(4,var(--pad-size));
+    place-content: center;
+}
+
+/* Level 3.2.1 */
+.pad
+{
+    align-items: center;
+    background-color: rgb(30, 30, 30);
+    border: calc(0.035*var(--pad-size)) solid rgb(85, 85, 85);
+    border-radius: calc(0.05*var(--pad-size));
+    box-shadow: 0 calc(0.03*var(--pad-size)) calc(0.05*var(--pad-size)) calc(0.01*var(--pad-size)) rgba(0, 0, 0, 0.3);
+    display: flex;
+    font-weight: bold;
+    height: var(--pad-size);
+    justify-content: center;
+    outline: none;
+    padding: 0;
+    touch-action: none;
+    transition: border-color 0.05s linear, box-shadow 0.05s linear;
+    user-select: none;
+    width: var(--pad-size);
+}
+.pad .sound
+{
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: calc(0.15*var(--pad-size));
+    position: absolute;
+}
+.pad .key
+{
+    color: rgb(85, 85, 85);
+    font-family: Arial, sans-serif;
+    font-size: calc(0.12*var(--pad-size));
+    margin-top: auto;
+    transition: color 0.05s linear;
+}
+.pad.hover:hover
+{
+    border-color: var(--pad-color);
+    cursor: pointer;
+}
+.pad.hover:hover .key
+{
+    color: var(--pad-color);
+}
+.pad.active
+{
+    border-color: var(--pad-color);
+    box-shadow: 0 0 calc(0.15*var(--pad-size)) 0 var(--pad-color);
+}
+.pad.active .key
+{
+    color: var(--pad-color);
+}
+/* Level 3.2.1 END */
+
+/* Level 3.2 END */
+
+/* Level 2 END */
+
+/* Level 1 END */
+
+/* Level 0 END */
