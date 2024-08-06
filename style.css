@@ -95,7 +95,7 @@ body
     display: flex;
     max-height: calc(2*0.18*var(--pad-size));
 }
-.screen span
+.screen .text span
 {
     color: var(--pad-color);
     font-family: "Digitized", monospace;
