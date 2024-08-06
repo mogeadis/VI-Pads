@@ -104,7 +104,6 @@ body
     text-shadow: 0 0 calc(0.2*var(--pad-size)) var(--pad-color);
     transition: opacity 0.25s linear;
     user-select: none;
-    vertical-align: top;
 }
 /* Level 3.1.2 END */
 
