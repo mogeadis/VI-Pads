@@ -85,16 +85,17 @@ body
     box-shadow: inset 0 0 calc(0.5*var(--pad-size)) #000000ee;
     display: flex;
     height: calc(0.4*var(--pad-size));
-    overflow-wrap: anywhere;
     overflow: hidden;
+    overflow-wrap: anywhere;
     text-align: center;
     width: calc(1.5*var(--pad-size));
 }
 .screen .text
 {
+    display: flex;
     max-height: calc(2*0.18*var(--pad-size));
 }
-.screen .text span
+.screen span
 {
     color: var(--pad-color);
     font-family: "Digitized", monospace;
