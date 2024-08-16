@@ -127,12 +127,12 @@ function getMIDINote(midi_message)
     const note = midi_message.data[1];
     if(midi_notes.includes(note))
     {
+        const index = midi_notes.indexOf(note);
+        const pad = pads[index];
         if((midi_message.data[0] === 144 && midi_message.data[2] !== 0))
         {
             if(!pressed_midi[note])
             {
-                const index = midi_notes.indexOf(note);
-                const pad = pads[index];
                 playAudioSample(index);
                 if(timeouts[index])
                 {
@@ -140,13 +140,16 @@ function getMIDINote(midi_message)
                     timeouts[index] = null;
                 }
                 pad.classList.add("active");
-                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },100);
                 pressed_midi[note] = true;
             }
         }
         else if((midi_message.data[0] === 144 && midi_message.data[2] === 0) || midi_message.data[0] === 128)
         {
-            pressed_midi[note] = false;
+            if(pressed_midi[note])
+            {
+                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
+                pressed_midi[note] = false;
+            }
         }
     }
 }

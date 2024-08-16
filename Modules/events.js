@@ -12,7 +12,9 @@ import {keyboard_keys} from "./config.js";
 import {pads} from "./device.js";
 import {playAudioSample} from "./audio.js";
 
-let pointer_handlers = [];
+let pointerdown_handlers = [];
+let pointerup_handlers = [];
+let pressed_pointer = {};
 let keydown_handlers = [];
 let keyup_handlers = [];
 let pressed_keyboard = {};
@@ -28,14 +30,17 @@ function addEventHandlers()
     });
     pads.forEach((pad,index) =>
     {
-        event_handler = pointerEventHandler(pad,index);
+        event_handler = pointerdownEventHandler(pad,index);
         pad.addEventListener("pointerdown",event_handler);
-        pointer_handlers.push(event_handler);
+        pointerdown_handlers.push(event_handler);
+        event_handler = pointerupEventHandler(pad,index);
+        document.addEventListener("pointerup",event_handler);
+        pointerup_handlers.push(event_handler);
         event_handler = keydownEventHandler(pad,index);
-        window.addEventListener("keydown",event_handler);
+        document.addEventListener("keydown",event_handler);
         keydown_handlers.push(event_handler);
-        event_handler = keyupEventHandler();
-        window.addEventListener("keyup",event_handler);
+        event_handler = keyupEventHandler(pad,index);
+        document.addEventListener("keyup",event_handler);
         keyup_handlers.push(event_handler);
     });
 }
@@ -44,27 +49,44 @@ function removeEventHandlers()
 {
     pads.forEach((pad,index) =>
     {
-        pad.removeEventListener("pointerdown",pointer_handlers[index]);
-        window.removeEventListener("keydown",keydown_handlers[index]);
-        window.removeEventListener("keyup",keyup_handlers[index]);
+        pad.removeEventListener("pointerdown",pointerdown_handlers[index]);
+        pad.removeEventListener("pointerup",pointerup_handlers[index]);
+        document.removeEventListener("keydown",keydown_handlers[index]);
+        document.removeEventListener("keyup",keyup_handlers[index]);
     });
-    pointer_handlers = [];
+    pointerdown_handlers = [];
+    pointerup_handlers = [];
     keydown_handlers = [];
     keyup_handlers = [];
 }
 
-function pointerEventHandler(pad,index)
+function pointerdownEventHandler(pad,index)
 {
     return function()
     {
-        playAudioSample(index);
-        if(timeouts[index])
+        if(!pressed_pointer[index])
         {
-            clearTimeout(timeouts[index]);
-            timeouts[index] = null;
+            playAudioSample(index);
+            if(timeouts[index])
+            {
+                clearTimeout(timeouts[index]);
+                timeouts[index] = null;
+            }
+            pad.classList.add("active");
+            pressed_pointer[index] = true;
         }
-        pad.classList.add("active");
-        timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },100);
+    }
+}
+
+function pointerupEventHandler(pad,index)
+{
+    return function()
+    {
+        if(pressed_pointer[index])
+        {
+            timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
+            pressed_pointer[index] = false;
+        }
     }
 }
 
@@ -84,19 +106,25 @@ function keydownEventHandler(pad,index)
                     timeouts[index] = null;
                 }
                 pad.classList.add("active");
-                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },100);
                 pressed_keyboard[key] = true;
             }
         }
     }
 }
 
-function keyupEventHandler()
+function keyupEventHandler(pad,index)
 {
     return function(event)
     {
         const key = event.key;
-        pressed_keyboard[key] = false;
+        if(key === keyboard_keys[index] || key === keyboard_keys[index].toUpperCase())
+        {
+            if(pressed_keyboard[key])
+            {
+                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
+                pressed_keyboard[key] = false;
+            }
+        }
     }
 }
 

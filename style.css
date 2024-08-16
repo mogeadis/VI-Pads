@@ -27,6 +27,8 @@ body
     height: 100vh;
     justify-content: center;
     margin: 0;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Level 2 */
@@ -60,7 +62,6 @@ body
     font-size: calc(0.3*var(--pad-size));
     outline: none;
     text-decoration: none;
-    user-select: none;
 }
 .project a span
 {
@@ -104,7 +105,6 @@ body
     opacity: 0;
     text-shadow: 0 0 calc(0.2*var(--pad-size)) var(--pad-color);
     transition: opacity 0.25s linear;
-    user-select: none;
 }
 /* Level 3.1.2 END */
 
@@ -191,7 +191,6 @@ hr
     padding: 0;
     touch-action: none;
     transition: border-color 0.05s linear, box-shadow 0.05s linear;
-    user-select: none;
     width: var(--pad-size);
 }
 .pad .sound
