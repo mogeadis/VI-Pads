@@ -20,7 +20,6 @@ let color_picker = null;
 let color_button = null;
 let power_button = null;
 let device_state = null;
-let touch_device = null;
 let timeouts = [];
 
 function setupDevice()
@@ -29,7 +28,6 @@ function setupDevice()
     installScreen();
     installColorButton();
     installPowerButton();
-    touch_device = (("ontouchstart" in window) || (navigator.maxTouchPoints > 0));
 }
 
 function installPads()
@@ -113,7 +111,7 @@ async function startUp()
     {
         timeouts[index] = setTimeout(() => { pad.classList.add("active"); },100*(index + 1));
         setTimeout(() => { pad.classList.remove("active"); },100*(index + 1) + 150);
-        if(!touch_device)
+        if(!(("ontouchstart" in window) || (navigator.maxTouchPoints > 0)))
         {
             pad.classList.add("hover");
         }

@@ -147,7 +147,7 @@ function getMIDINote(midi_message)
         {
             if(pressed_midi[note])
             {
-                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
+                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },25);
                 pressed_midi[note] = false;
             }
         }

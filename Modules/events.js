@@ -30,11 +30,12 @@ function addEventHandlers()
     });
     pads.forEach((pad,index) =>
     {
+        pressed_pointer[index] = 0;
         event_handler = pointerdownEventHandler(pad,index);
         pad.addEventListener("pointerdown",event_handler);
         pointerdown_handlers.push(event_handler);
         event_handler = pointerupEventHandler(pad,index);
-        document.addEventListener("pointerup",event_handler);
+        pad.addEventListener("pointerup",event_handler);
         pointerup_handlers.push(event_handler);
         event_handler = keydownEventHandler(pad,index);
         document.addEventListener("keydown",event_handler);
@@ -64,17 +65,14 @@ function pointerdownEventHandler(pad,index)
 {
     return function()
     {
-        if(!pressed_pointer[index])
+        pressed_pointer[index] += 1;
+        playAudioSample(index);
+        if(timeouts[index])
         {
-            playAudioSample(index);
-            if(timeouts[index])
-            {
-                clearTimeout(timeouts[index]);
-                timeouts[index] = null;
-            }
-            pad.classList.add("active");
-            pressed_pointer[index] = true;
+            clearTimeout(timeouts[index]);
+            timeouts[index] = null;
         }
+        pad.classList.add("active");
     }
 }
 
@@ -82,10 +80,13 @@ function pointerupEventHandler(pad,index)
 {
     return function()
     {
-        if(pressed_pointer[index])
+        if(pressed_pointer[index] > 0)
         {
-            timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
-            pressed_pointer[index] = false;
+            pressed_pointer[index] -= 1;
+        }
+        if(pressed_pointer[index] == 0)
+        {
+            timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },25);
         }
     }
 }
@@ -121,7 +122,7 @@ function keyupEventHandler(pad,index)
         {
             if(pressed_keyboard[key])
             {
-                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },50);
+                timeouts[index] = setTimeout(() => { pad.classList.remove("active"); },25);
                 pressed_keyboard[key] = false;
             }
         }

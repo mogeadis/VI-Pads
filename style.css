@@ -190,7 +190,7 @@ hr
     outline: none;
     padding: 0;
     touch-action: none;
-    transition: border-color 0.05s linear, box-shadow 0.05s linear;
+    transition: border-color 0.025s linear, box-shadow 0.025s linear;
     width: var(--pad-size);
 }
 .pad .sound
