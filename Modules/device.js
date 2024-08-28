@@ -20,10 +20,12 @@ let color_picker = null;
 let color_button = null;
 let power_button = null;
 let device_state = null;
+let touch_device = null;
 let timeouts = [];
 
 function setupDevice()
 {
+    touch_device = (("ontouchstart" in window) || (navigator.maxTouchPoints > 0));
     installPads();
     installScreen();
     installColorButton();
@@ -42,6 +44,16 @@ function installPads()
         matrix.appendChild(button);
     });
     pads = document.querySelectorAll(".pad");
+    if(touch_device)
+    {
+        pads.forEach((pad) =>
+        {
+            pad.addEventListener("touchend",event =>
+            {
+                event.preventDefault();
+            },{passive : false});
+        });
+    }
 }
 
 function installScreen()
@@ -111,7 +123,7 @@ async function startUp()
     {
         timeouts[index] = setTimeout(() => { pad.classList.add("active"); },100*(index + 1));
         setTimeout(() => { pad.classList.remove("active"); },100*(index + 1) + 150);
-        if(!(("ontouchstart" in window) || (navigator.maxTouchPoints > 0)))
+        if(!touch_device)
         {
             pad.classList.add("hover");
         }
@@ -148,4 +160,4 @@ async function shutDown()
     await removeMIDIListeners();
 }
 
-export {pads,screen,device_state,setupDevice};
+export {pads,screen,device_state,touch_device,setupDevice};
