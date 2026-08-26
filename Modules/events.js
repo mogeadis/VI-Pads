@@ -3,7 +3,7 @@ Filename: events.js
 
 Description: This module sets up the pointer and keyboard event handlers of the project
 
-Author: Alexandros Iliadis
+Author: Alexandros Iliadis (https://github.com/mogeadis)
 Project: VI-Pads
 Date: August 2024
 **************************************************************************************************/

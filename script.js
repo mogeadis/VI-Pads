@@ -3,7 +3,7 @@ Filename: script.js
 
 Description: This script sets up the interactivity of the web page that hosts the project
 
-Author: Alexandros Iliadis
+Author: Alexandros Iliadis (https://github.com/mogeadis)
 Project: VI-Pads
 Date: August 2024
 **************************************************************************************************/

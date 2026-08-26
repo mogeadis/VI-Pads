@@ -3,7 +3,7 @@ Filename: device.js
 
 Description: This module sets up the virtual device functionality of the project
 
-Author: Alexandros Iliadis
+Author: Alexandros Iliadis (https://github.com/mogeadis)
 Project: VI-Pads
 Date: August 2024
 **************************************************************************************************/

@@ -3,7 +3,7 @@ Filename: config.js
 
 Description: This module sets up the configuration variables of the project
 
-Author: Alexandros Iliadis
+Author: Alexandros Iliadis (https://github.com/mogeadis)
 Project: VI-Pads
 Date: August 2024
 **************************************************************************************************/
